@@ -20,7 +20,7 @@ var userChoices = [ ];
 
 var wins = 0;
 var losses = 0;
-var turns = 11;
+var turns = 10;
 
 
 
