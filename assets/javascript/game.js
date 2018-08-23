@@ -14,7 +14,7 @@
 
 var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-var userChoices = [];
+var userChoices = [ ];
 
 
 
@@ -28,37 +28,54 @@ var turns = 11;
 
 var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
 
+var duplicateFlag;
+
+
 document.onkeyup = function (event) {
 
     userGuess = event.key.toLowerCase();
-    userChoices.push(userGuess[0]);
+    duplicateFlag = false;
     
-
-
-
     console.log(userGuess);
     console.log(computerGuess);
     console.log(wins);
     console.log(losses);
+    console.log(userChoices);
 
 
-    if ((userGuess === "a") || (userGuess === "b") || (userGuess === "c") || (userGuess === "d") || (userGuess === "e") || (userGuess === "f") || (userGuess === "g") || (userGuess === "h") || (userGuess === "i") || (userGuess === "j") || (userGuess === "k") || (userGuess === "l") || (userGuess === "m") || (userGuess === "n") || (userGuess === "o") || (userGuess === "p") || (userGuess === "q") || (userGuess === "r") || (userGuess === "s") || (userGuess === "t") || (userGuess === "u") || (userGuess === "v") || (userGuess === "w") || (userGuess === "x") || (userGuess === "y") || (userGuess === "z"));
+    if ((userGuess === "a") || (userGuess === "b") || (userGuess === "c") || (userGuess === "d") || (userGuess === "e") || (userGuess === "f") || (userGuess === "g") || (userGuess === "h") || (userGuess === "i") || (userGuess === "j") || (userGuess === "k") || (userGuess === "l") || (userGuess === "m") || (userGuess === "n") || (userGuess === "o") || (userGuess === "p") || (userGuess === "q") || (userGuess === "r") || (userGuess === "s") || (userGuess === "t") || (userGuess === "u") || (userGuess === "v") || (userGuess === "w") || (userGuess === "x") || (userGuess === "y") || (userGuess === "z")) {
 
-    if (userGuess === computerGuess) {
-        alert("you win!");
-        userChoices = "";
-        computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-        wins++;
-        turns = 10;
-    } else if (turns === 1) {
-        alert("you lost!");
-        userChoices = "";
-        computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-        losses++;
-        turns = 10;
-    } else {
-        turns--;
-    };
+        for (var i = 0; i < userChoices.length; i++) {
+            if (userChoices[i] === userGuess) {
+                duplicateFlag = true;
+            }
+        }
+
+        if (!duplicateFlag) {
+            // console.log("user chose a dupllicate letter");
+            userChoices.push(userGuess[0]);
+
+            if (userGuess === computerGuess) {
+                alert("you win!");
+                computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+                wins++;
+                turns = 10;
+                userChoices = [];
+
+            } else if (turns === 1) {
+                alert("you lost!");
+                computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+                losses++;
+                turns = 10;
+                userChoices = [];
+            } else {
+                turns--;
+            }
+            
+           
+            // userChoices = [];
+        }
+    }
 
 
 
